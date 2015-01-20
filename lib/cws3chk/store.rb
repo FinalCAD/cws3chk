@@ -1,4 +1,4 @@
-require 'Cws3chk/redis'
+require 'cws3chk/redis'
 
 class Cws3chk::Store < Struct.new(:resource, :mounted_column, :version)
   include Cws3chk::Redis

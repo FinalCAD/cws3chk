@@ -1,6 +1,6 @@
 require 'threadify_procs'
-require 'Cws3chk/s3'
-require 'Cws3chk/store'
+require 'cws3chk/s3'
+require 'cws3chk/store'
 
 # This class is in charge of checking the existance on S3 of the assets
 # described by ActiveRecord + Carrierwave.

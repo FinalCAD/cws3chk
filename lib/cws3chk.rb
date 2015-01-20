@@ -1,6 +1,6 @@
-require 'Cws3chk/version'
-require 'Cws3chk/job'
-require 'Cws3chk/checker'
+require 'cws3chk/version'
+require 'cws3chk/job'
+require 'cws3chk/checker'
 require 'active_support'
 require 'active_support/core_ext'
 

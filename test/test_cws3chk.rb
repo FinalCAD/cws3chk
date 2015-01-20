@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require 'Cws3chk'
+require 'cws3chk'
 require 'mocha/mini_test'
 require 'aws'
 

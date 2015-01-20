@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'Cws3chk/version'
+require 'cws3chk/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "Cws3chk"
+  spec.name          = "cws3chk"
   spec.version       = Cws3chk::VERSION
   spec.authors       = ["Antoine Qu'hen"]
   spec.email         = ["antoinequhen@gmail.com"]
   spec.summary       = %q{Check assets are on S3 as Carrierwave says}
   spec.description   = %q{This gem studies the existency of AR model assets, including their versions, on S3 via Resque jobs.}
-  spec.homepage      = ""
+  spec.homepage      = "https://rubygems.org/gems/cws3chk"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
