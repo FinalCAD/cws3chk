@@ -1,6 +1,6 @@
 require "bundler/gem_tasks"
 
-require "carrierwave_assets_presence_validator/tasks"
+require "Cws3chk/tasks"
 
 require 'rake/testtask'
 

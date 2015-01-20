@@ -1,4 +1,4 @@
-module CarrierwaveAssetsPresenceValidator::Redis
+module Cws3chk::Redis
 
   # TODO config
   def redis

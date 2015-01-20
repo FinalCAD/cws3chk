@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'carrierwave_assets_presence_validator/version'
+require 'Cws3chk/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "cws3chk"
-  spec.version       = CarrierwaveAssetsPresenceValidator::VERSION
+  spec.name          = "Cws3chk"
+  spec.version       = Cws3chk::VERSION
   spec.authors       = ["Antoine Qu'hen"]
   spec.email         = ["antoinequhen@gmail.com"]
   spec.summary       = %q{Check assets are on S3 as Carrierwave says}

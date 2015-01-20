@@ -1,9 +1,9 @@
 require 'minitest/autorun'
-require 'carrierwave_assets_presence_validator'
+require 'Cws3chk'
 require 'mocha/mini_test'
 require 'aws'
 
-class CarrierwaveAssetsPresenceValidatorTest < Minitest::Test
+class Cws3chkTest < Minitest::Test
 
   class Subject
     def image?
@@ -26,29 +26,28 @@ class CarrierwaveAssetsPresenceValidatorTest < Minitest::Test
   end
 
   def setup
-    CarrierwaveAssetsPresenceValidator::Store.any_instance.stubs(:redis).
-      returns(fake_redis)
+    Cws3chk::Store.any_instance.stubs(:redis).returns(fake_redis)
   end
 
   def test_check_one_present_asset
     set_s3_headers_to headers_of_present_asset
-    CarrierwaveAssetsPresenceValidator::Validator.new(request, :image, 2).check
-    keys = fake_redis.sets["CarrierwaveAssetsPresenceValidator::metadata"]
+    Cws3chk::Checker.new(request, :image, 2).check
+    keys = fake_redis.sets["Cws3chk::metadata"]
     assert_equal keys.size, 2
     assert_equal keys.sort, [
-      "[\"CarrierwaveAssetsPresenceValidatorTest::Subject\",1,\"image\",\"pdf\",{\"content-length\":1999}]",
-      "[\"CarrierwaveAssetsPresenceValidatorTest::Subject\",1,\"image\",null,{\"content-length\":1999}]"
+      "[\"Cws3chkTest::Subject\",1,\"image\",\"pdf\",1999]",
+      "[\"Cws3chkTest::Subject\",1,\"image\",null,1999]"
     ]
   end
 
   def test_check_one_missing_asset
     set_s3_headers_to headers_of_missing_asset
-    CarrierwaveAssetsPresenceValidator::Validator.new(request, :image, 2).check
-    keys = fake_redis.sets["CarrierwaveAssetsPresenceValidator::missing"]
+    Cws3chk::Checker.new(request, :image, 2).check
+    keys = fake_redis.sets["Cws3chk::missing"]
     assert_equal keys.size, 2
     assert_equal keys.sort, [
-      "[\"CarrierwaveAssetsPresenceValidatorTest::Subject\",1,\"image\",\"pdf\"]",
-      "[\"CarrierwaveAssetsPresenceValidatorTest::Subject\",1,\"image\",null]"
+      "[\"Cws3chkTest::Subject\",1,\"image\",\"pdf\"]",
+      "[\"Cws3chkTest::Subject\",1,\"image\",null]"
     ]
   end
 
@@ -67,28 +66,11 @@ class CarrierwaveAssetsPresenceValidatorTest < Minitest::Test
     nil
   end
 
-  def mock_core
-    CarrierwaveAssetsPresenceValidator::Validator.any_instance.
-      stubs(:bucket).returns(true)
-    Aws::S3::Key.stubs(:create).returns(s3_key)
-  end
-
   def s3_key
     mock('s3_key').tap do |_mock|
       _mock.stubs(:head).returns(true)
       _mock.stubs(:headers).returns(@headers)
     end
-  end
-
-  def activerecord_mock
-    Subject.stubs(:where).returns([subject])
-  end
-
-  def subject
-    Subject.any_instance.stubs(:image?).returns(true)
-    versions.keys
-    uploader = mock 'image', versions
-    Subject.any_instance.stubs(:image).returns(true)
   end
 
   def request

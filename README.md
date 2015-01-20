@@ -23,18 +23,18 @@ And then execute:
 
 ## Usage
 
-    $ bundle exec rake cws3chk:check
+    $ bundle exec rake Cws3chk:check
 or
 
 ```ruby
 request = User.with_avatar
-CarrierwaveAssetsPresenceValidator::Validator.new(request, :avatar, 250).check
+Cws3chk::Checker.new(request, :avatar, 250).check
 ```
 Then study your missig assets and fix them if needed:
 ```ruby
-redis.smembers 'CarrierwaveAssetsPresenceValidator::missing'
+redis.smembers 'Cws3chk::missing'
 ```
 You can also study the size of the resulting assets:
 ```ruby
-redis.smembers 'CarrierwaveAssetsPresenceValidator::metadata'
+redis.smembers 'Cws3chk::metadata'
 ```

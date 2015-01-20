@@ -1,6 +1,6 @@
 require 'threadify_procs'
-require 'carrierwave_assets_presence_validator/s3'
-require 'carrierwave_assets_presence_validator/store'
+require 'Cws3chk/s3'
+require 'Cws3chk/store'
 
 # This class is in charge of checking the existance on S3 of the assets
 # described by ActiveRecord + Carrierwave.
@@ -9,7 +9,7 @@ require 'carrierwave_assets_presence_validator/store'
 #
 # After loading the data from the database, it performs the calls to S3 in
 # parallel via threads.
-class CarrierwaveAssetsPresenceValidator::Validator < Struct.new(:request, :mounted_column, :threads)
+class Cws3chk::Checker < Struct.new(:request, :mounted_column, :threads)
   include ThreadifyProcs
 
   def check
@@ -41,8 +41,8 @@ class CarrierwaveAssetsPresenceValidator::Validator < Struct.new(:request, :moun
   end
 
   def study resource, uploader, version
-    s3 = CarrierwaveAssetsPresenceValidator::S3.new uploader, version
-    store = CarrierwaveAssetsPresenceValidator::Store.new(
+    s3 = Cws3chk::S3.new uploader, version
+    store = Cws3chk::Store.new(
       resource, mounted_column, version)
     if s3.file_exists?
       store.store_headers s3.headers

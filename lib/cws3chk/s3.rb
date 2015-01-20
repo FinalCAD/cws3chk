@@ -1,6 +1,6 @@
 require 'retryable_block'
 
-class CarrierwaveAssetsPresenceValidator::S3 < Struct.new(:uploader, :version)
+class Cws3chk::S3 < Struct.new(:uploader, :version)
   include RetryableBlock
 
   # TODO put 1.kilobyte in config
@@ -20,7 +20,7 @@ class CarrierwaveAssetsPresenceValidator::S3 < Struct.new(:uploader, :version)
         retryable{ key.head }
         print '.'
       rescue => e
-        Rails.logger.warn "CarrierwaveAssetsPresenceValidator::S3 #{e.message}"
+        Rails.logger.warn "Cws3chk::S3 #{e.message}"
       end
     end.headers # Headers is blank if the head request has failed.
   end
