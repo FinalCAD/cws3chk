@@ -23,7 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'resque', '>= 1.25.2'
   spec.add_runtime_dependency 'retryable_block', '>= 0.0.1'
   spec.add_runtime_dependency 'threadify_procs', '>= 0.0.5'
+  spec.add_runtime_dependency 'redis', '>= 3.1.0'
+  spec.add_runtime_dependency 'json', '>= 1.8.2'
 
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "mocha", ">= 1.1.0"
 end

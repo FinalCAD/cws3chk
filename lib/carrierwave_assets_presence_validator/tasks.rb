@@ -8,7 +8,7 @@ task :collect_missing_assets, :model, :mounted_column, :workers, :threads do
   workers = args.workers.present? ? args.workers.to_i : 100
   threads = args.threads.present? ? args.threads.to_i : 250
   ids.each_slice(workers) do |ids_group|
-    Resque.enqueue CarrierwaveAssetsPresenceValidator,
+    Resque.enqueue CarrierwaveAssetsPresenceValidator::Job,
       klass.name, ids_group.to_json, threads, mounted_column
   end
 end
