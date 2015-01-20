@@ -10,7 +10,7 @@ class CarrierwaveAssetsPresenceValidator::Store < Struct.new(:resource, :mounted
   
   def store_headers headers
     redis.sadd 'CarrierwaveAssetsPresenceValidator::metadata',
-      (base + [headers]).to_json
+      (base + [headers['content-length']]).to_json
   end
   
   private
@@ -22,3 +22,7 @@ class CarrierwaveAssetsPresenceValidator::Store < Struct.new(:resource, :mounted
      version]
   end
 end
+
+ RedisProxy
+ CarrierwaveAssetsPresenceValidator::Validator.new(Project.find(417).comments.with_image.limit(2), :image, 10).check
+ pp JSON.load RedisProxy.smembers("CarrierwaveAssetsPresenceValidator::metadata").first ; nil

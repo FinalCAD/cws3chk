@@ -2,6 +2,6 @@ module CarrierwaveAssetsPresenceValidator::Redis
 
   # TODO config
   def redis
-    RedisProxy
+    @redis ||= ::RedisProxy
   end
 end

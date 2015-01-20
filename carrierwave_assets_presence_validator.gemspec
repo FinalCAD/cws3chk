@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'carrierwave_assets_presence_validator/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "carrierwave_assets_presence_validator"
+  spec.name          = "cws3chk"
   spec.version       = CarrierwaveAssetsPresenceValidator::VERSION
   spec.authors       = ["Antoine Qu'hen"]
   spec.email         = ["antoinequhen@gmail.com"]
-  spec.summary       = %q{Check assets are on S3 as DB says}
-  spec.description   = %q{This gem adds rake tasks and resque jobs to check that AR model assets assets are really on S3, including their versions.}
+  spec.summary       = %q{Check assets are on S3 as Carrierwave says}
+  spec.description   = %q{This gem studies the existency of AR model assets, including their versions, on S3 via Resque jobs.}
   spec.homepage      = ""
   spec.license       = "MIT"
 

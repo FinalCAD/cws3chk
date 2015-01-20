@@ -2,6 +2,13 @@ require 'threadify_procs'
 require 'carrierwave_assets_presence_validator/s3'
 require 'carrierwave_assets_presence_validator/store'
 
+# This class is in charge of checking the existance on S3 of the assets
+# described by ActiveRecord + Carrierwave.
+# It checks for the existence of the original file an the different versions.
+# It stores the result of the check in Redis.
+#
+# After loading the data from the database, it performs the calls to S3 in
+# parallel via threads.
 class CarrierwaveAssetsPresenceValidator::Validator < Struct.new(:request, :mounted_column, :threads)
   include ThreadifyProcs
 

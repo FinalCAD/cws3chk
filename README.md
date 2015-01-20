@@ -1,31 +1,40 @@
-# CarrierwaveAssetsPresenceValidator
+# Cws3chk
 
-TODO: Write a gem description
+This gem checks the existance on S3 of the assets described by ActiveRecord
+and Carrierwave.
+
+* It loads the ids of the object with assets in a task and splits them into 
+  groups. Each group is going to be processed by a Resque Job.
+* It studies the groups of object by launching n threads. It checks for the
+  existence of the original file and the different versions.
+* It stores the result of the check in Redis.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'carrierwave_assets_presence_validator'
+gem 'Cws3chk'
 ```
 
 And then execute:
 
     $ bundle
 
-Or install it yourself as:
-
-    $ gem install carrierwave_assets_presence_validator
-
 ## Usage
 
-TODO: Write usage instructions here
+    $ bundle exec rake cws3chk:check
+or
 
-## Contributing
-
-1. Fork it ( https://github.com/[my-github-username]/carrierwave_assets_presence_validator/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+```ruby
+request = User.with_avatar
+CarrierwaveAssetsPresenceValidator::Validator.new(request, :avatar, 250).check
+```
+Then study your missig assets and fix them if needed:
+```ruby
+redis.smembers 'CarrierwaveAssetsPresenceValidator::missing'
+```
+You can also study the size of the resulting assets:
+```ruby
+redis.smembers 'CarrierwaveAssetsPresenceValidator::metadata'
+```
